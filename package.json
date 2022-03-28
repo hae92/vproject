@@ -1,0 +1,19 @@
+{
+  "name": "vproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/hae92/vproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hae92/vproject/issues"
+  },
+  "homepage": "https://github.com/hae92/vproject#readme"
+}
