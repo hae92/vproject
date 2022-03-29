@@ -1,32 +1,27 @@
 <template>
   <div>
-    <div class="black-bg" v-if="Modal">
-      <div class="white-bg">
-        <h4>{{Products[SelectedRoom].title}}</h4>
-        <p>{{Products[SelectedRoom].content}}</p>
-        <button @click="DisplayModel(0, false)">Close</button>
-      </div>
-    </div>
+    <ModalView :Products="Products" :SelectedRoom="SelectedRoom" :Modal="Modal" :DisplayModel="DisplayModel"></ModalView>
 
     <div class="menu">
       <a v-for="item, index in Menu" :key="index">{{Menu[index]}}</a>
     </div>
+    <Discount v-if="true"></Discount>
 
     <img alt="Vue logo" src="./assets/logo.png" width="200">
     <h4>{{LogoTitle}}</h4>
 
     <div v-for="product, index in Products" :key="index">
-      <img :src="Products[index].image" class="room-img">
-      <h4 @click="DisplayModel(index, true)" :style=MyStyle>{{Products[index].title}}</h4>
-      <p>{{Products[index].price}} 만원</p>
-      <button @click="Increase(index)">허위매물신고</button> <span>신고수 : {{Products[index].count}}</span>
-    </div>
+      <Card @click="DisplayModel(index, true)" :product="product"></Card>
+    </div>    
   </div>
 </template>
 
 <script>
 
 import onerooms from './assets/onerooms.js';
+import Discount from './components/Discount.vue'
+import ModalView from './components/ModelView.vue'
+import Card from './components/Card.vue'
 
 export default {
   name: 'App',
@@ -35,8 +30,6 @@ export default {
       LogoTitle : 'One Room Shop',
       MyStyle : 'color : green',
       Menu : ['Home', 'Products', 'About'],
-      Modal : false,
-      SelectedRoom : 0,
       Products : onerooms,
     }
   },
@@ -47,9 +40,18 @@ export default {
     DisplayModel(index, show) {
       this.SelectedRoom = index
       this.Modal = show
+      this.Products[index].count++
+      this.Products[index].count--
+    },
+    Change() {
+
     }
+
   },
   components: {
+   Discount : Discount, 
+   ModalView : ModalView,
+   Card : Card,
   }
 }
 </script>
@@ -62,6 +64,7 @@ body {
 div {
   box-sizing : border-box;
 }
+
 .black-bg {
   width : 100%; 
   height : 100%;
@@ -75,8 +78,6 @@ div {
   border-radius: 8px;
   padding: 20px;
 }
-
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
